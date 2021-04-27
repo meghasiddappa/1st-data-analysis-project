@@ -120,3 +120,43 @@ order by 1, il.UnitPrice*SUM(il.Quantity)  DESC)
 select * from dataset
 where val <= 2 ;
  
+
+--count of tracks and details of each artist
+SELECT a2.Name, count(t.Name), g.Name, mt.Name 
+FROM Track t
+inner join Artist a2 on a2.ArtistId = a.ArtistId 
+inner join Album a on a.AlbumId = t.AlbumId 
+inner join Genre g on g.GenreId = t.GenreId 
+inner join MediaType mt on mt.MediaTypeId = t.MediaTypeId 
+group by a2.name
+order by COUNT(t.name) desc;
+
+
+--different genre names with there playlist
+select g.Name genre_name, p.Name  play_name
+from Track t
+left join Genre g on t.GenreId = g.GenreId 
+LEFT join PlaylistTrack pt on pt.TrackId = t.TrackId 
+left join Playlist p on p.PlaylistId = pt.playlistid 
+group by p.Name;
+
+
+--employees who sold most number of tracks
+select e.FirstName emp_name, t.Name track_name, sum(il.Quantity) 
+from Customer c 
+inner join Employee e on e.EmployeeId = c.SupportRepId 
+INNER join Invoice i on i.CustomerId  = c.CustomerId 
+inner join InvoiceLine il on il.InvoiceId = i.InvoiceId 
+inner join Track t on t.TrackId = il.InvoiceLineId 
+group by e.FirstName
+order by sum(il.Quantity) ;
+
+
+
+
+
+
+
+
+
+
