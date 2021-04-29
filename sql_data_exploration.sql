@@ -22,7 +22,7 @@ inner join Album a on a.AlbumId = t.AlbumId
 group by t.TrackId 
 order by SUM(il.Quantity) desc;
 
---top selling track
+--top selling tracks
 select il.TrackId, SUM(il.Quantity) 
 from InvoiceLine il
 group by il.TrackId 
@@ -152,6 +152,8 @@ group by e.FirstName
 order by sum(il.Quantity) ;
 
 
+--
+SELECT * from foo;
 
 
 
